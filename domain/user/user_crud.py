@@ -26,3 +26,8 @@ def get_existing_user(db: Session, user_create: UserCreate):
 
 def get_user(db: Session, username: str):
     return db.query(User).filter(User.username == username).first()
+
+def create_user_oauth(db: Session, username: str, email: str):
+    db_user = User(username=username, email=email, password="oauth")  # 비밀번호는 OAuth 사용자에 대해 의미 없음
+    db.add(db_user)
+    db.commit()
